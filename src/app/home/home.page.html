@@ -1,12 +1,41 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
-  The world is your oyster.
-  <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <ion-item color="dark" [formGroup]="timeForm">
+    <ion-label>Duration</ion-label>
+    <ion-datetime display-format="mm:ss" formControlName="durationTime"></ion-datetime>
+  </ion-item>
+
+  <div class="circle-progress-container">
+    <circle-progress (click)="startTimer()"
+      [percent]="localTimerPercent$ | async"
+      [maxPercent]="100"
+      [radius]="100"
+      [showTitle]="false"
+      [showSubtitle]="false"
+      [showUnits]="false"
+      [outerStrokeWidth]="16"
+      [outerStrokeColor]="'#8000FF'"
+      [showZeroOuterStroke]="false"
+      [backgroundStroke]="'#33003F'"
+      [backgroundStrokeWidth]="3"
+      [outerStrokeGradient]="true"
+      [outerStrokeGradientStopColor]="'#FF00CB'"
+      [showInnerStroke]="false"
+      [animation]="false"
+    ></circle-progress>
+  </div>
+
+  <p *ngIf="overallTimerElapsedTime$ | async as elapsed" class="overall-timer">
+    {{elapsed.h}}:{{elapsed.m}}:{{elapsed.s}}
+  </p>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="startTimer()" *ngIf="!overallTimerRunning; else running">
+      <ion-icon name="play"></ion-icon>
+    </ion-fab-button>
+    <ng-template #running>
+      <ion-fab-button (click)="restoreTimers()">
+        <ion-icon name="square"></ion-icon>
+      </ion-fab-button>
+    </ng-template>
+  </ion-fab>
 </ion-content>

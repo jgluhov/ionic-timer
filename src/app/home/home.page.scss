@@ -1,1 +1,18 @@
+circle-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
 
+.circle-progress-container {
+  height: 50vh;
+}
+
+.overall-timer {
+  font-size: 3em;
+  color: #565656;
+  width: 100%;
+  text-align: center;
+}
